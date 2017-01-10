@@ -3,10 +3,11 @@ result = ''
 
 def combiner(operation):
     global result
-    print "you've chosen to engage the %ser" % (operation)
+    print "You've chosen to engage the %ser" % (operation)
     sleep(1)
-    in1 = input("enter your first value: ")
-    in2 = input("enter your second value: ")
+    print
+    in1 = input("Enter your first value: ")
+    in2 = input("Enter your second value: ")
     if type(in1) == type(in2) and type(in1) and type(in2) == int:
         if operation == "add":
             result = "Result of adding your integers is: %s" % (in1 + in2)
@@ -42,15 +43,15 @@ def combiner(operation):
     return result
 
 repeat = True
-operator = "What oporator would you like to add or subtract?"
+operator = "Would you like to add or subtract?"
 again = "would you like to play again?(1 for yes, 0 for no)"
 while repeat == True:
-    print operator
-    answer = raw_input("Please put your answer in quotations: ")
+    answer = raw_input(operator + ": ")
     combiner(answer)
 
     print "Calculating..."
     sleep (.75)
+    print
     print result
 
     print again

@@ -46,7 +46,7 @@ operator = "What oporator would you like to add or subtract?"
 again = "would you like to play again?(1 for yes, 0 for no)"
 while repeat == True:
     print operator
-    answer = input("Please put your answer in quotations: ")
+    answer = raw_input("Please put your answer in quotations: ")
     combiner(answer)
 
     print "Calculating..."

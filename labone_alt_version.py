@@ -11,19 +11,13 @@ def op_validity(operation):
     else:
         op_check = "failed"
         return op_check
-def inputs_and_check():
-    in1 = input("Please enter first value: ")
-    in2 = input("Please enter second value: ")
+def input_check(in1,in2):
     if type(in1) != type(in2):
-        print "FAILED"
-        again = start_up()
+        types = "failed"
+        return types
     else:
-        in1, in2 = in1, in2
-        return in1, in2
-    if in1 == "" or in2 == "":
-        print "blank"
-    else:
-        pass
+        types = type(in1)
+        return types
     
 def op_add(in1,in2):
     if type(in1) and type(in2) == int:
@@ -45,28 +39,31 @@ def op_add(in1,in2):
         result = (in1 and in2)
         return result
     else:
-        print "There was an error, Please try again"
-        operation=start_up()
+        result = "There was an error, Please try again."
+        return result
 
         return result
 def op_sub(in1,in2):
     if type(in1) and type(in2) == int:
         result = (in1 - in2)
         return result
-    if type(in1) and type(in2) == float:
+    elif type(in1) and type(in2) == float:
         result = (in1 - in2)
         return result
-    if type(in1) and type(in2) == str:
+    elif type(in1) and type(in2) == str:
         result = "Error, can not subtract strings"
         return result
-    if type(in1) and type(in2) == tuple:
+    elif type(in1) and type(in2) == tuple:
         result = "Error, can not subtract tuples"
         return result
-    if type(in1) and type(in2) == list:
+    elif type(in1) and type(in2) == list:
         result = "Error, can not subtract lists"
         return result
-    if type(in1) and type(in2) == bool:
+    elif type(in1) and type(in2) == bool:
         result = "Error, can not subtract boolean values"
+        return result
+    else:
+        result = "There was an error, Please try again."
         return result
 
 def result_checker(result,in1):
@@ -87,7 +84,9 @@ def restart():
         again = False
         return again
     else:
-        print "Sorry I didn't catch that. Try again."
+        again = "Sorry I didn't catch that. Try again."
+        return again
+        
 
 run = True
 welcome = "Welcome to my adder"
@@ -101,12 +100,24 @@ while run:
 
 
     if op_check == "pass":
-        in1, in2 = inputs_and_check()
+        try:
+            in1 = input("Please enter first value: ")
+            in2 = input("Please enter second value: ")
+        except SyntaxError:
+            print "please enter valid inputs"
+            continue
+            
     elif op_check == "failed":
         print "Unsupported operation type"
         continue
-    
+    types = input_check(in1,in2)
 
+    if types == "failed":
+        print
+        print "sorry, inputs must be of same type"
+        print
+        continue
+    
     if operation == "add":
         result = op_add(in1,in2)
     elif operation == "subtract" or "Subtract":
@@ -114,11 +125,12 @@ while run:
     else:
         print "sorry something went wrong"
     
-    result_check = result_checker(result, in1)
+    if result != "Sorry I didn't catch that. Try again.":
+        result_check = result_checker(result, in1)
 
-    print "Calculating..."
-    sleep (1)
-    print
+        print "Calculating..."
+        sleep (1)
+        print
 
     if result_check == "pass":
         resultMsg = "The result of %sing your inputs is: %s" %(operation,result)
@@ -129,7 +141,9 @@ while run:
     again = restart()
     if again == True:
         pass
-    else:
+    elif again == False:
         run = False
+    else:
+        continue
 quit()
 
